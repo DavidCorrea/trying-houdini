@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Houdini</title>
+        <link rel="stylesheet" type="text/css" href="./index.css"><link>
+    </head>
+    <body>
+        <div class="box">
+            <div class="content">
+                <div class="input">
+                    <span>CSS Houdini</span>
+                </div>
+                <div class="input">
+                    <span>David Correa</span>
+                </div>
+                <div class="input">
+                    <span>#10PinesConf</span>    
+                </div>
+            </div>    
+        </div>
+    </body>
+
+    <script src="./custom_properties.js"></script>
+    <script src="./typed_cssom.js"></script>
+
+    <script>
+        CSS.paintWorklet.addModule('paint.js');
+
+        CSS.animationWorklet.addModule('animation.js').then(function() {
+            const box = document.querySelector('.box');
+            const effectKeyframes = new KeyframeEffect(box,
+            [
+                {transform: 'scale(1)'},
+                {transform: 'scale(1.02)'},
+                {transform: 'scale(1)'}
+            ],
+            {
+                duration: 500,
+                iterations: Number.POSITIVE_INFINITY
+            });
+
+            new WorkletAnimation('sample-animator', effectKeyframes).play();
+        });
+
+        CSS.layoutWorklet.addModule('layout.js');
+    </script>
+</html>
